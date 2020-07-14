@@ -1,0 +1,6 @@
+# ignore node_modules
+/node_modules/
+
+# Package Files
+*.mp4
+*.jpg

@@ -1,0 +1,23 @@
+{
+  "name": "back_market_cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ethan081/BackMarketCypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ethan081/BackMarketCypress/issues"
+  },
+  "homepage": "https://github.com/Ethan081/BackMarketCypress#readme",
+  "devDependencies": {
+    "cypress": "^4.10.0"
+  }
+}
