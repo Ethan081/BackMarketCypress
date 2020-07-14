@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:run:chrome":"cypress run --record --key 9a1d3096-41b0-4fc4-9f3f-8c233dd89f9a --browser chrome --headless"
   },
   "repository": {
     "type": "git",
