@@ -1,39 +1,57 @@
-describe('Test Login Back Marcket', () =>{
+describe('Back market authentication  Test ', () =>{
 
     beforeEach('Connextion a la page LogIn', () =>{
         cy.visit('https://www.backmarket.fr/register')  
         cy.url().should('include', '/register')
-        cy.viewport('macbook-13') 
         cy.clearCookies()
         
     })
-    it('Log-In with true email and password', () =>{
+    it('Connextion succefull', () =>{
         cy.get('#email-signin').click()
-        cy.get('#email-signin').type("email@yahoo.fr")
-        cy.get('#password-signin').type('******')
-        cy.get('._36HxYAE3lm-VAy2DCDaFyV').contains('Welcome Back!').click()
+        cy.wait(2000)
+        cy.get('#email-signin').type('myrightemail@ymail.fr')
+        cy.get('#password-signin').type('RightPassWord')
+        cy.contains('Welcome Back!').click()
+        cy.wait(2000)
+        cy.visit('https://www.backmarket.fr/dashboard/orders')  
+        cy.url().should('include', '/dashboard/orders')
     })
-    it('Input Email and Password are empty ', () =>{
+    it('Email should be empty', () =>{
         cy.get('#email-signin').click()
-        cy.get('#email-signin').type("email@yahoo.fr").clear({force:true})
-        cy.get('#password-signin').type('*****').clear({force:true})
-        cy.get('._36HxYAE3lm-VAy2DCDaFyV').contains('Welcome Back!').click()
-    })
-    it('Email equal true value', () =>{
+        cy.wait(2000)
         cy.get('#email-signin')
-            .type("email@yahoo.fr")
-            .should('have.value', 'email@yahoo.fr')
+        cy.get('#password-signin').type('RightPassWord')
+        cy.contains('Welcome Back!').click()
+        cy.contains('Le champ "Email" est obligatoire').should('be.visible')
     })
-    it('email contain @', () =>{
-        cy.get('#email-signin').type("email@yahoo.fr")
-        cy.get('#email-signin').should('have.value', '@')
-        cy.get('#password-signin').type('******')
-        cy.get('._36HxYAE3lm-VAy2DCDaFyV').contains('Welcome Back!').click()
+    it('Email should not valid format', () =>{
+        cy.get('#email-signin').click()
+        cy.wait(2000)
+        cy.get('#email-signin').type('mywrongmail@mail.fr')
+        cy.get('#password-signin').type('RightPassWord')
+        cy.contains('Welcome Back!').click()
+        cy.contains('Mauvaise combinaison email/mot de passe').should('be.visible')
     })
-    it('show password  ', () =>{
-        cy.get('#email-signin').type('email@yahoo.fr')
-        cy.get('[data-test=password-wrapper] > ._3qXNdv-MBFJNzill27fzzJ > [data-test=password-toggle-button]').click()
-        cy.get('._36HxYAE3lm-VAy2DCDaFyV').contains('Welcome Back!').click()
+    it('Password should not valid format', () =>{
+        cy.get('#email-signin').click()
+        cy.wait(2000)
+        cy.get('#email-signin').type('myrightemail@ymail.fr')
+        cy.get('#password-signin').type('WrongPassWord')
+        cy.contains('Welcome Back!').click()
+        cy.contains('Mauvaise combinaison email/mot de passe').should('be.visible')
+    })
+    it('Welcome Back! button disable', () => {
+        cy.get('#email-signin').click()
+        cy.wait(2000)
+        cy.get('#email-signin').type('myrightemail@ymail.fr')
+        cy.get('#password-signin').type('WrongPassWord')
+        cy.contains('Welcome Back!').click()
+        cy.get('#password-signin').type('{del}{selectall}{backspace}')
+        cy.contains('Welcome Back!').should('be.disabled')
+        cy.contains('Merci de saisir un mot de passe valide.').should('be.visible')
+        cy.contains('Mauvaise combinaison email/mot de passe').should('be.visible')
+        
     })
     
+   
 })
